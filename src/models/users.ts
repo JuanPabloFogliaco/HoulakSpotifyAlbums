@@ -18,6 +18,6 @@ import {
     id!: number;
   
     @Column
-    ip!: boolean;
+    ip!: string;
   
   }
