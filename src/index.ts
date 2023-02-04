@@ -1,7 +1,7 @@
 import sequelize from "./connection";
 import express from "express";
 import { Application } from "express";
-//import router from "./routes/index";
+import Router from "./routes/index";
 
 const app: Application = express();
 
@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.use("/api/v1", () => {});
+app.use("/api/v1", Router);
 
 app.listen(8080, () => {
   console.log(`App runing at http://0.0.0.0:8080`);
