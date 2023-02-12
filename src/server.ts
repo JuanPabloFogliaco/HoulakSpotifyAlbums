@@ -7,6 +7,8 @@ const app: Application = express();
 
 const bodyParser = require("body-parser");
 
+app.use(express.json())
+
 const expressSwagger = require("express-swagger-generator")(app);
 
 const cors = require("cors");
@@ -40,6 +42,13 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS");
+  next();
+});
+
 app.use("/api/v1", Router);
 
 app.listen(8080, () => {
@@ -50,6 +59,7 @@ app.listen(8080, () => {
       console.log("database connected");
       try {
         await sequelize.sync({ force: false, alter: true });
+        
       } catch (error) {
         console.log("Error", error);
       }
